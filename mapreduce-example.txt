@@ -1,0 +1,50 @@
+# oozie
+
+find /usr/hdp -name "oozie*examples*"
+
+cp /usr/hdp/2.5.0.0-1245/oozie/doc/oozie-examples.tar.gz .
+
+/home/jagadeesh427/oozie/examples/apps
+
+oozie admin -oozie http://nn01.itversity.com:11000/oozie/ -status 
+
+Update job.properties
+
+
+nameNode=hdfs://nn01.itversity.com:8020
+jobTracker=rm01.itversity.com:8050
+
+hadoop fs -put /home/jagadeesh427/oozie/examples /user/jagadeesh427
+
+
+oozie job -oozie http://nn01.itversity.com:11000/oozie/ \
+-config  /home/jagadeesh427/oozie/examples/apps/map-reduce/job.properties -run
+
+you should see
+job: 0000000-170330051735289-oozie-oozi-W
+
+
+####checking the job status##
+
+oozie job --oozie http://nn01.itversity.com:11000/oozie/ -info 0000000-170330051735289-oozie-oozi-W
+
+OR
+goto core-site.xml and get namenode ip-address
+
+http://nn01.itversity.com:11000/oozie/
+OR
+
+goto yarn-site.xml and get the resourcemanger ip address.
+
+http://rm01.itversity.com:8088/cluster/apps
+
+
+OUTPUT:
+
+hadoop fs -cat /user/jagadeesh427/examples/output-data/map-reduce/part-00000
+
+
+
+
+
+
